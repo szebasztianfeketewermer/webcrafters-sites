@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Bistro - Étel, Élmény, Szenvedély</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8B0000; /* Dark Red */
+            --secondary-color: #b33939; /* Lighter Red */
+            --text-color: #333;
+            --light-text-color: #f8f8f8;
+            --background-light: #f8f8f8;
+            --background-dark: #2c3e50;
+            --header-font: 'Playfair Display', serif;
+            --body-font: 'Open Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--header-font);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 10px auto 0;
+        }
+
+        section {
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .navbar-brand {
+            font-family: var(--header-font);
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: var(--text-color);
+            margin-bottom: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--light-text-color);
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.8) 0%, rgba(179, 57, 57, 0.6) 100%), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') no-repeat center center/cover;
+            animation: fadeInBackground 2s ease-out forwards;
+        }
+
+        @keyframes fadeInBackground {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-family: var(--header-font);
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--light-text-color);
+            animation: slideInUp 1s ease-out forwards;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--light-text-color);
+            animation: slideInUp 1.2s ease-out forwards;
+        }
+
+        .hero .btn {
+            display: inline-block;
+            background-color: var(--light-text-color);
+            color: var(--primary-color);
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            animation: zoomIn 1.5s ease-out forwards;
+        }
+
+        .hero .btn:hover {
+            background-color: var(--secondary-color);
+            color: var(--light-text-color);
+            transform: translateY(-5px);
+        }
+
+        /* Wave Divider */
+        .wave-divider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px; /* Adjust height as needed */
+        }
+
+        .wave-divider.bottom-wave svg {
+            transform: rotate(180deg);
+        }
+
+        .wave-divider.top-wave svg {
+            transform: rotate(0deg);
+        }
+
+        .wave-divider .shape-fill {
+            fill: var(--background-light); /* Color of the section it connects to */
+        }
+
+        .wave-divider.top-wave .shape-fill {
+            fill: var(--background-light);
+        }
+        .wave-divider.bottom-wave .shape-fill {
+            fill: var(--light-text-color); /* Color of the section it connects to */
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--background-light);
+            text-align: center;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            animation: slideInLeft 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+            animation: slideInRight 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        /* Services Section */
+        .services {
+            background-color: var(--light-text-color);
+            padding-bottom: 0; /* Adjust for wave */
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-item {
+            background-color: var(--background-light);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-item i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .service-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--background-light);
+            text-align: center;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-item {
+            background-color: var(--light-text-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-align: left;
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .testimonial-item p {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .testimonial-item h4 {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .testimonial-item span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--background-dark);
+            color: var(--light-text-color);
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: var(--light-text-color);
+        }
+
+        .contact h2::after {
+            background-color: var(--secondary-color);
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--light-text-color);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            animation: zoomIn 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: var(--body-font);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form button {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+        .contact-form button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        .footer a {
+            color: var(--light-text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .animated {
+            opacity: 0; /* Default hidden state for JS animation */
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.98);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+                border-top: 1px solid #eee;
+                padding-top: 10px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+                padding: 10px 0;
+                border-bottom: 1px solid #eee;
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 10px 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .about-image, .about-text {
+                min-width: unset;
+                width: 100%;
+            }
+
+            .services-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <a href="#hero" class="navbar-brand">Test Bistro</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero">Kezdőlap</a></li>
+                <li><a href="#about">Rólunk</a></li>
+                <li><a href="#services">Szolgáltatások</a></li>
+                <li><a href="#testimonials">Vélemények</a></li>
+                <li><a href="#contact">Kapcsolat</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Test Bistro</h1>
+            <p>Fedezze fel az ízek harmóniáját egy barátságos környezetben.</p>
+            <a href="#contact" class="btn">Foglaljon Asztalt</a>
+        </div>
+    </section>
+
+    <!-- Wave Divider -->
+    <div class="wave-divider top-wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M985.66,92.83C906.67,72,823.7,53.64,756.5,45.24C691.15,37.14,659.8,29,600,34.29C545.4,39.69,502,49.21,450,56C383.5,63.74,324.4,69.57,275,75C214.34,81.67,113.67,97.47,0,120V0H1200V120C1134.18,99.91,1065.3,95.27,985.66,92.83Z" class="shape-fill"></path>
+        </svg>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="animated">Rólunk</h2>
+            <div class="about-content">
+                <div class="about-image animated">
+                    <img src="https://images.unsplash.com/photo-1549488344-77080f4f9f7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Test Bistro Belső Tér">
+                </div>
+                <div class="about-text animated">
+                    <h3>A Test Bistro Története</h3>
+                    <p>A Test Bistro egy olyan hely, ahol a hagyományos magyar ízek találkoznak a modern konyha innovatív megközelítésével. Célunk, hogy minden vendégünk számára felejthetetlen gasztronómiai élményt nyújtsunk, legyen szó egy gyors ebédről, egy romantikus vacsoráról vagy egy családi összejövetelről.</p>
+                    <p>Friss, helyi alapanyagokból készítjük ételeinket, szenvedéllyel és odafigyeléssel. Hiszünk abban, hogy az étel nem csupán táplálék, hanem egy élmény, amely összehozza az embereket és örömet szerez. Látogasson el hozzánk, és engedje, hogy elvarázsoljuk ízlelőbimbóit!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wave Divider -->
+    <div class="wave-divider bottom-wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M985.66,92.83C906.67,72,823.7,53.64,756.5,45.24C691.15,37.14,659.8,29,600,34.29C545.4,39.69,502,49.21,450,56C383.5,63.74,324.4,69.57,275,75C214.34,81.67,113.67,97.47,0,120V0H1200V120C1134.18,99.91,1065.3,95.27,985.66,92.83Z" class="shape-fill"></path>
+        </svg>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="animated">Szolgáltatásaink</h2>
+            <div class="services-grid">
+                <div class="service-item animated">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Étkezési Élmény</h3>
+                    <p>Kóstolja meg kiváló magyar és nemzetközi fogásainkat, melyeket friss, minőségi alapanyagokból készítünk. Étlapunk szezonálisan változik, hogy mindig a legfinomabb ízeket kínálhassuk.</p>
+                </div>
+                <div class="service-item animated">
+                    <i class="fas fa-wine-glass-alt"></i>
+                    <h3>Italválaszték</h3>
+                    <p>Kínálatunkban megtalálhatók a legjobb magyar borok, kézműves sörök és különleges koktélok. Szakértő pincéreink segítenek megtalálni az ételeihez illő tökéletes italt.</p>
+                </div>
+                <div class="service-item animated">
+                    <i class="fas fa-birthday-cake"></i>
+                    <h3>Rendezvények</h3>
+                    <p>Legyen szó születésnapról, céges eseményről vagy családi ünnepségről, a Test Bistro ideális helyszínt biztosít. Személyre szabott menüvel és professzionális kiszolgálással várjuk.</p>
+                </div>
+                <div class="service-item animated">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Vegán és Vegetáriánus</h3>
+                    <p>Különleges figyelmet fordítunk a vegetáriánus és vegán vendégeinkre. Számos ízletes és kreatív növényi alapú ételt kínálunk, amelyek garantáltan elnyerik tetszését.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wave Divider -->
+    <div class="wave-divider top-wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M985.66,92.83C906.67,72,823.7,53.64,756.5,45.24C691.15,37.14,659.8,29,600,34.29C545.4,39.69,502,49.21,450,56C383.5,63.74,324.4,69.57,275,75C214.34,81.67,113.67,97.47,0,120V0H1200V120C1134.18,99.91,1065.3,95.27,985.66,92.83Z" class="shape-fill"></path>
+        </svg>
+    </div>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="animated">Vendégeink Mondták</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-item animated">
+                    <p>"A Test Bistro az egyik kedvenc éttermem Budapesten. Az ételek mindig frissek és ízletesek, a kiszolgálás pedig kifogástalan. Különösen ajánlom a gulyáslevest!"</p>
+                    <h4>Kovács Anna</h4>
+                    <span>Hűséges Vendég</span>
+                </div>
+                <div class="testimonial-item animated">
+                    <p>"Egy felejthetetlen születésnapi vacsorát töltöttünk itt. A személyzet nagyon kedves és segítőkész volt, az ételek pedig művészi alkotások. Mindenkinek csak ajánlani tudom!"</p>
+                    <h4>Nagy Péter</h4>
+                    <span>Születésnapos</span>
+                </div>
+                <div class="testimonial-item animated">
+                    <p>"Imádom a Test Bistro hangulatát! Tökéletes hely egy baráti összejövetelhez, vagy akár egy nyugodt délutáni kávézáshoz. A desszertjeik pedig egyszerűen mennyei!"</p>
+                    <h4>Kiss Eszter</h4>
+                    <span>Gasztro Blogger</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wave Divider -->
+    <div class="wave-divider bottom-wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M985.66,92.83C906.67,72,823.7,53.64,756.5,45.24C691.15,37.14,659.8,29,600,34.29C545.4,39.69,502,49.21,450,56C383.5,63.74,324.4,69.57,275,75C214.34,81.67,113.67,97.47,0,120V0H1200V120C1134.18,99.91,1065.3,95.27,985.66,92.83Z" class="shape-fill"></path>
+        </svg>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="animated">Lépjen Kapcsolatba Velünk</h2>
+            <form class="contact-form animated" action="https://formspree.io/f/xpwzgkqj" method="POST">
+                <label for="name">Név:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">E-mail Cím:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Üzenet:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Küldés</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 Test Bistro. Minden jog fenntartva.</p>
+            <p>Készült <a href="mailto:john@test.com">John Doe</a> számára.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu if open
+                if (window.innerWidth <= 768) {
+                    const navLinks = document.getElementById('nav-links');
+                    const menuToggle = document.getElementById('mobile-menu');
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animated').
