@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Kimi Retry – Privát Klinika Budapest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A Kimi Retry privát klinika Budapest szívében, mély smaragd színnel és kifinomult gondoskodással, a páciensek egészségének és biztonságának szolgálatában.">
+    <meta property="og:title" content="Kimi Retry – Privát Klinika Budapest">
+    <meta property="og:description" content="Kifinomult, megbízható egészségügyi ellátás a Kimi Retry klinikán, mély smaragd színben.">
+    <meta property="og:type" content="business.business">
+    <meta property="og:image" content="https://example.com/og-image.jpg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalClinic",
+      "name": "Kimi Retry",
+      "description": "Privát klinika Budapest szívében, személyre szabott egészségügyi megoldásokkal.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Andrássy út 12.",
+        "addressLocality": "Budapest",
+        "postalCode": "1061",
+        "addressCountry": "HU"
+      },
+      "telephone": "+36 1 234 5678",
+      "url": "https://www.kimiretry.hu"
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --emerald: #006B54;
+            --emerald-light: #2E8B71;
+            --emerald-dark: #004F3E;
+            --accent: #00A86B;
+            --bg: #f9fafb;
+            --text: #212529;
+            --radius: 1rem;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        h1,h2{
+            font-family: 'DM Serif Display', serif;
+            color: var(--emerald-dark);
+        }
+        a{
+            color: var(--emerald);
+            text-decoration:none;
+            transition: color .3s;
+        }
+        a:hover{
+            color: var(--accent);
+        }
+        header{
+            position:relative;
+            overflow:hidden;
+            border-bottom-left-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+        }
+        .hero{
+            height:70vh;
+            min-height:400px;
+            position:relative;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#fff;
+            text-align:center;
+            overflow:hidden;
+        }
+        .hero img{
+            position:absolute;
+            top:0;left:0;width:100%;height:100%;object-fit:cover;
+            animation: kenburns 25s ease-in-out infinite alternate;
+        }
+        @keyframes kenburns{
+            0%{transform:scale(1) translate(0,0);}
+            100%{transform:scale(1.15) translate(-5%, -5%);}
+        }
+        .hero .overlay{
+            position:relative;
+            background: rgba(0,0,0,0.4);
+            padding:2rem;
+            border-radius: var(--radius);
+        }
+        nav{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:1rem 2rem;
+            background:rgba(255,255,255,0.9);
+            position:sticky;
+            top:0;
+            z-index:10;
+        }
+        .nav-links{
+            display:flex;
+            gap:1.5rem;
+        }
+        .nav-links a{
+            font-weight:600;
+        }
+        .hamburger{
+            display:none;
+            flex-direction:column;
+            gap:.3rem;
+            cursor:pointer;
+        }
+        .hamburger span{
+            width:25px;height:3px;background:var(--emerald-dark);
+        }
+        @media (max-width:768px){
+            .nav-links{
+                position:absolute;
+                top:100%;right:0;
+                background:#fff;
+                flex-direction:column;
+                width:200px;
+                padding:1rem;
+                box-shadow:0 2px 8px rgba(0,0,0,.1);
+                display:none;
+            }
+            .nav-links.show{display:flex;}
+            .hamburger{display:flex;}
+        }
+        section{
+            padding:4rem 2rem;
+            max-width:1200px;
+            margin:auto;
+        }
+        .story{
+            background:linear-gradient(135deg, var(--emerald-light) 0%, var(--emerald) 100%);
+            color:#fff;
+            border-radius: var(--radius);
+            padding:3rem;
+            position:relative;
+            overflow:hidden;
+        }
+        .story::before{
+            content:"";
+            position:absolute;
+            top:-20%;
+            left:-20%;
+            width:140%;
+            height:140%;
+            background:url('https://images.unsplash.com/photo-1582719478186-1e6c4c8d1c8c?auto=format&fit=crop&w=1600&q=80') no-repeat center/cover;
+            opacity:.15;
+            transform:rotate(10deg);
+        }
+        .parallax{
+            background:url('https://images.unsplash.com/photo-1597848216924-7f2e3d5f0b07?auto=format&fit=crop&w=1600&q=80') fixed center/cover;
+            height:300px;
+            border-radius: var(--radius);
+            margin:4rem 0;
+        }
+        .contact{
+            background: var(--emerald-light);
+            color:#fff;
+            border-radius: var(--radius);
+            padding:2rem;
+        }
+        .contact form{
+            display:flex;
+            flex-direction:column;
+            gap:1rem;
+        }
+        .contact input,
+        .contact textarea{
+            padding:.8rem;
+            border:none;
+            border-radius:.5rem;
+            font-family:inherit;
+        }
+        .contact button{
+            background: var(--accent);
+            color:#fff;
+            border:none;
+            padding:.8rem 1.5rem;
+            border-radius:.5rem;
+            cursor:pointer;
+            font-weight:600;
+            transition:background .3s;
+        }
+        .contact button:hover{
+            background:#009966;
+        }
+        footer{
+            background:#212529;
+            color:#adb5bd;
+            padding:2rem;
+            text-align:center;
+            font-size:.9rem;
+        }
+        .cta-float{
+            position:fixed;
+            bottom:80px;
+            right:20px;
+            background:#25D366;
+            color:#fff;
+            padding:.8rem 1rem;
+            border-radius:50px;
+            font-size:1rem;
+            box-shadow:0 2px 6px rgba(0,0,0,.2);
+            cursor:pointer;
+        }
+        .back-top{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            background:#006B54;
+            color:#fff;
+            padding:.6rem .9rem;
+            border-radius:50%;
+            font-size:1.2rem;
+            cursor:pointer;
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><strong>Kimi Retry</strong></div>
+            <div class="nav-links" id="navLinks">
+                <a href="#rolunk">Rólunk</a>
+                <a href="#szolgaltatasok">Szolgáltatások</a>
+                <a href="#kapcsolat">Kapcsolat</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+        <section class="hero">
+            <img src="https://images.unsplash.com/photo-1582719478186-1e6c4c8d1c8c?auto=format&fit=crop&w=1600&q=80" alt="Klinika belső">
+            <div class="overlay">
+                <h1>Kimi Retry – A bizalom otthona</h1>
+                <p>Budapest szívében, mély smaragd színben, ahol minden páciens története egy új kezdet.</p>
+            </div>
+        </section>
+    </header>
+
+    <section class="story" id="rolunk">
+        <h2>Az út, ami a szívünkbe vezetett</h2>
+        <p>Amikor Dr. Kimi először a kórház csarnokában állt, tudta: a betegeknek több kell, mint csak orvosi ellátás – egy biztonságos ölelés, egy nyugodt szó. Így született meg a Kimi Retry, ahol a modern orvostudomány és a személyes figyelem együtt rezeg.</p>
+        <p>A klinikánk teret ad az emberi kapcsolatoknak, a természetes anyagoknak, és a nyugalomnak. Minden szoba organikusan lekerekített formákat idéz, a fények finoman játszanak a falak színével, és a páciensek egyedi igényei mindig középpontban állnak.</p>
+        <p>„Az itt töltött idő alatt úgy éreztem, mintha egy régi barátommal beszélgetnék – nyugodt és biztonságos.” – <span>★★★★★</span> – egy páciensünk szívhez szóló visszajelzése.</p>
+        <p>Mi nem csak kezelünk, mi elmesélünk egy történetet – a te egészségedről, a jövődről, a reményről.</p>
+    </section>
+
+    <div class="parallax"></div>
+
+    <section class="story" id="szolgaltatasok">
+        <h2>A személyre szabott ellátás útja</h2>
+        <p>Az első találkozáskor egy mély beszélgetést folytatunk, ahol meghallgatjuk a múltad, a jelened, és a vágyaid. Ezután a csapatunk egyedi kezelési tervet állít össze, melyben a legmodernebb technológiák és a természetes terápiák egyensúlya jelenik meg.</p>
+        <p>A kezelések során a páciensek gyakran észreveszik, hogy a szoba légköre – a lágy fények, a környező növények és a halk zene – segíti a felépülést. Minden apró részlet, a székek lekerekített szélei, a falak finom színátmenetei, a nyugodt mozgású képek mind azt a cél szolgálják, hogy a gyógyulás ne csak testi, hanem lelki legyen is.</p>
+    </section>
+
+    <section class="contact" id="kapcsolat">
+        <h2>Vegye fel velünk a kapcsolatot</h2>
+        <p>Ha szeretné megtapasztalni a Kimi Retry különleges gondoskodását, kérjük, töltse ki az alábbi űrlapot vagy hívjon minket.</p>
+        <form action="https://formspree.io/f/xpwzgkqj" method="POST">
+            <input type="text" name="name" placeholder="Név" required>
+            <input type="email" name="_replyto" placeholder="E-mail" required>
+            <input type="tel" name="phone" placeholder="Telefonszám" required>
+            <textarea name="message" rows="4" placeholder="Üzenet" required></textarea>
+            <button type="submit">Küldés</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Kimi Retry – Privát Klinika Budapest</p>
+        <p>Andrássy út 12., 1061 Budapest, Magyarország | ☎️ +36 1 234 5678</p>
+    </footer>
+
+    <div class="cta-float" onclick="window.open('https://wa.me/36312345678','_blank')">
+        📱 WhatsApp +36 31 234 5678
+    </div>
+
+    <div class="back-top" id="backTop">↑</div>
+
+    <script>
+        (function(){
+            const hamburger=document.getElementById('hamburger');
+            const navLinks=document.getElementById('navLinks');
+            hamburger.addEventListener('click',()=>navLinks.classList.toggle('show'));
+
+            const backTop=document.getElementById('backTop');
+            window.addEventListener('scroll',()=>{
+                if(window.scrollY>300){
+                    backTop.style.display='block';
+                }else{
+                    backTop.style.display='none';
+                }
+            });
+            backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+        })();
+    </script>
+</body>
+</html>
