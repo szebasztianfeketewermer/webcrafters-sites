@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Test - Pékség</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff8c42;
+            --bg-dark: #1e1e1e;
+            --bg-card: rgba(255,255,255,0.1);
+            --text-light: #f5f5f5;
+            --text-muted: #c0c0c0;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Montserrat',sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height:1.6;
+        }
+        a{color:var(--primary);text-decoration:none;}
+        header{
+            position:sticky;top:0;z-index:1000;
+            background:transparent;
+            transition:background .3s;
+        }
+        .nav{
+            display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;
+        }
+        .nav.scrolled{background:rgba(30,30,30,0.9);}
+        .nav .logo{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--primary);}
+        .nav ul{list-style:none;display:flex;gap:1.5rem;}
+        .nav ul li a{color:var(--text-light);font-weight:600;}
+        .nav .menu-toggle{display:none;}
+        .nav .hamburger{
+            display:none;
+            flex-direction:column;
+            cursor:pointer;
+        }
+        .nav .hamburger span{
+            width:25px;height:3px;background:var(--text-light);margin:4px 0;
+            transition:0.3s;
+        }
+        @media (max-width:768px){
+            .nav ul{position:absolute;top:100%;left:0;width:100%;background:rgba(30,30,30,0.95);flex-direction:column;max-height:0;overflow:hidden;transition:max-height .3s ease;}
+            .nav ul.show{max-height:500px;}
+            .nav .hamburger{display:flex;}
+        }
+        .hero{
+            height:100vh;
+            background:url('https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?fit=crop&w=1600&q=80') center/cover no-repeat;
+            position:relative;
+            display:flex;align-items:center;justify-content:center;
+        }
+        .hero::after{
+            content:"";
+            position:absolute;top:0;left:0;width:100%;height:100%;
+            background:linear-gradient(135deg,rgba(30,30,30,0.6),rgba(255,140,66,0.4));
+        }
+        .hero h1{
+            position:relative;
+            font-family:'Playfair Display',serif;
+            font-size:3.5rem;
+            color:var(--primary);
+            text-align:center;
+        }
+        .section{
+            padding:4rem 2rem;
+            position:relative;
+        }
+        .wave-top{
+            position:absolute;
+            top:-1px;
+            left:0;
+            width:100%;
+            height:80px;
+            background:var(--bg-dark);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 70%);
+        }
+        .wave-bottom{
+            position:absolute;
+            bottom:-1px;
+            left:0;
+            width:100%;
+            height:80px;
+            background:var(--bg-dark);
+            clip-path: polygon(0 30%, 100% 0, 100% 100%, 0 100%);
+        }
+        .card-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:2rem;
+        }
+        .card{
+            background:var(--bg-card);
+            backdrop-filter:blur(10px);
+            border-radius:12px;
+            padding:2rem;
+            text-align:center;
+            transition:transform .3s,box-shadow .3s;
+        }
+        .card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 8px 20px rgba(0,0,0,0.4);
+        }
+        .card h3{
+            font-family:'Playfair Display',serif;
+            margin-bottom:.5rem;
+            color:var(--primary);
+        }
+        .stats{
+            display:flex;
+            justify-content:center;
+            gap:3rem;
+            flex-wrap:wrap;
+        }
+        .stat{
+            text-align:center;
+        }
+        .stat .number{
+            font-size:2.5rem;
+            font-weight:600;
+            color:var(--primary);
+        }
+        .testimonials{
+            max-width:800px;margin:auto;
+        }
+        .testimonial{
+            background:var(--bg-card);
+            backdrop-filter:blur(10px);
+            border-radius:12px;
+            padding:1.5rem;
+            margin-bottom:1.5rem;
+        }
+        .testimonial .stars{
+            color:#ffd700;
+            margin-bottom:.5rem;
+        }
+        .contact form{
+            max-width:600px;margin:auto;display:flex;flex-direction:column;gap:1rem;
+        }
+        .contact input,.contact textarea{
+            padding:0.8rem;
+            border:none;
+            border-radius:8px;
+            background:rgba(255,255,255,0.1);
+            color:var(--text-light);
+        }
+        .contact button{
+            padding:0.8rem;
+            border:none;
+            border-radius:8px;
+            background:var(--primary);
+            color:#fff;
+            font-weight:600;
+            cursor:pointer;
+            transition:background .3s;
+        }
+        .contact button:hover{
+            background:#e57a30;
+        }
+        footer{
+            background:#111;
+            padding:2rem;
+            text-align:center;
+            font-size:0.9rem;
+        }
+        .social a{
+            margin:0 .5rem;
+            color:var(--text-muted);
+        }
+        .cta-btn{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            background:var(--primary);
+            color:#fff;
+            padding:0.8rem 1rem;
+            border-radius:50px;
+            font-size:1.2rem;
+            box-shadow:0 4px 12px rgba(0,0,0,0.3);
+            cursor:pointer;
+            z-index:1000;
+        }
+        #backToTop{
+            position:fixed;
+            bottom:80px;
+            right:20px;
+            background:#555;
+            color:#fff;
+            padding:0.6rem 0.9rem;
+            border-radius:50%;
+            font-size:1.4rem;
+            cursor:pointer;
+            display:none;
+            z-index:1000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav" id="navbar">
+            <div class="logo">Fixed Test</div>
+            <ul id="navLinks">
+                <li><a href="#about">Rólunk</a></li>
+                <li><a href="#products">Termékek</a></li>
+                <li><a href="#stats">Statisztikák</a></li>
+                <li><a href="#testimonials">Vélemények</a></li>
+                <li><a href="#contact">Kapcsolat</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Üdvözöljük a Fixed Test Pékségben</h1>
+    </section>
+
+    <section class="section" id="about">
+        <div class="wave-top"></div>
+        <h2 style="text-align:center;font-family:'Playfair Display',serif;color:var(--primary);margin-bottom:2rem;">Rólunk</h2>
+        <p style="max-width:800px;margin:auto;text-align:center;">
+            Egy meleg, otthonos hely, ahol friss, kézzel készített péksütemények várják Önt. Szeretettel és szenvedéllyel sütünk minden nap.
+        </p>
+        <div class="wave-bottom"></div>
+    </section>
+
+    <section class="section" id="products" style="background:#2a2a2a;">
+        <div class="wave-top"></div>
+        <h2 style="text-align:center;font-family:'Playfair Display',serif;color:var(--primary);margin-bottom:2rem;">Termékeink</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>Friss Bagett</h3>
+                <p>Könnyű és ropogós, tökéletes szendvicsekhez.</p>
+                <button style="margin-top:1rem;background:var(--primary);border:none;padding:0.6rem 1rem;color:#fff;cursor:pointer;">Rendelés</button>
+            </div>
+            <div class="card">
+                <h3>Almás Rétes</h3>
+                <p>Édes és illatos, házi recept szerint.</p>
+                <button style="margin-top:1rem;background:var(--primary);border:none;padding:0.6rem 1rem;color:#fff;cursor:pointer;">Rendelés</button>
+            </div>
+            <div class="card">
+                <h3>Csokoládés Muffin</h3>
+                <p>Gazdag csokoládé íz, minden alkalomra.</p>
+                <button style="margin-top:1rem;background:var(--primary);border:none;padding:0.6rem 1rem;color:#fff;cursor:pointer;">Rendelés</button>
+            </div>
+        </div>
+        <div class="wave-bottom"></div>
+    </section>
+
+    <section class="section" id="stats">
+        <div class="wave-top"></div>
+        <h2 style="text-align:center;font-family:'Playfair Display',serif;color:var(--primary);margin-bottom:2rem;">Statisztikák</h2>
+        <div class="stats">
+            <div class="stat">
+                <div class="number">20+</div>
+                <div>Év tapasztalat</div>
+            </div>
+            <div class="stat">
+                <div class="number">500+</div>
+                <div>Elégedett vásárló</div>
+            </div>
+            <div class="stat">
+                <div class="number">1500</div>
+                <div>Naponta elkészített sütemény</div>
+            </div>
+        </div>
+        <div class="wave-bottom"></div>
+    </section>
+
+    <section class="section" id="testimonials" style="background:#2a2a2a;">
+        <div class="wave-top"></div>
+        <h2 style="text-align:center;font-family:'Playfair Display',serif;color:var(--primary);margin-bottom:2rem;">Vélemények</h2>
+        <div class="testimonials">
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p>„A legjobb bagett, amit valaha kóstoltam!” – Ádám</p>
+            </div>
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p>„Az almás rétes egyszerűen mennyei.” – Éva</p>
+            </div>
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p>„Minden nap frissen sült muffin, köszönöm!” – Gábor</p>
+            </div>
+        </div>
+        <div class="wave-bottom"></div>
+    </section>
+
+    <section class="section" id="contact">
+        <div class="wave-top"></div>
+        <h2 style="text-align:center;font-family:'Playfair Display',serif;color:var(--primary);margin-bottom:2rem;">Kapcsolat</h2>
+        <div class="contact">
+            <form action="https://formspree.io/f/xpwzgkqj" method="POST">
+                <input type="text" name="name" placeholder="Név" required>
+                <input type="email" name="_replyto" placeholder="Email" required>
+                <textarea name="message" rows="5" placeholder="Üzenet" required></textarea>
+                <button type="submit">Küldés</button>
+            </form>
+        </div>
+        <div class="wave-bottom"></div>
+    </section>
+
+    <footer>
+        <div class="social">
+            <a href="#">Facebook</a>·
+            <a href="#">Instagram</a>·
+            <a href="#">Twitter</a>
+        </div>
+        <p>© 2026 Fixed Test Pékség. Minden jog fenntartva.</p>
+    </footer>
+
+    <div class="cta-btn" id="whatsappBtn">📞</div>
+    <div id="backToTop">↑</div>
+
+    <script>
+        try{
+            const navbar = document.getElementById('navbar');
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            const backBtn = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 50){
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                if(window.scrollY > 300){
+                    backBtn.style.display = 'block';
+                } else {
+                    backBtn.style.display = 'none';
+                }
+            });
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
+
+            backBtn.addEventListener('click', () => {
+                window.scrollTo({top:0, behavior:'smooth'});
+            });
+        } catch(e){}
+    </script>
+</body>
+</html>
