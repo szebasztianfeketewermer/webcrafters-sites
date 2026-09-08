@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Test Pékség – Kényelmes, Meleg és Friss</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg-dark:#1a1a1a;
+            --bg-card:rgba(255,255,255,0.08);
+            --primary:#ff8c00;
+            --text-light:#f5f5f5;
+            --text-muted:#cccccc;
+            --transition:0.3s ease;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Montserrat',sans-serif;
+            background-color:var(--bg-dark);
+            color:var(--text-light);
+            line-height:1.6;
+            overflow-x:hidden;
+        }
+        a{color:inherit;text-decoration:none;}
+        img{max-width:100%;display:block;}
+        /* Scroll progress bar */
+        #progress-bar{
+            position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--primary),#ffb84d);
+            width:0;z-index:9999;
+        }
+        /* Back to top */
+        #backToTop{
+            position:fixed;right:20px;bottom:20px;background:var(--primary);color:#fff;
+            width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+            cursor:pointer;opacity:0;visibility:hidden;transition:var(--transition);
+            z-index:1000;
+        }
+        #backToTop.show{opacity:1;visibility:visible;}
+        /* Navbar */
+        nav{
+            position:fixed;top:0;left:0;width:100%;padding:15px 30px;
+            display:flex;justify-content:space-between;align-items:center;
+            transition:var(--transition);z-index:1000;
+        }
+        nav.transparent{background:transparent;}
+        nav.solid{background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);}
+        .logo{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--primary);}
+        .nav-links{display:flex;gap:30px;}
+        .nav-links a{color:var(--text-light);font-weight:600;transition:var(--transition);}
+        .nav-links a:hover{color:var(--primary);}
+        .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+        .hamburger span{width:25px;height:3px;background:#fff;transition:var(--transition);}
+        /* Hero */
+        #hero{
+            height:100vh;
+            background:url('https://images.unsplash.com/photo-1542831371-d531d36971e6?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat fixed;
+            position:relative;
+            display:flex;align-items:center;justify-content:center;
+            text-align:center;
+            color:#fff;
+            overflow:hidden;
+        }
+        #hero::before{
+            content:"";position:absolute;top:0;left:0;width:100%;height:100%;
+            background:linear-gradient(45deg,rgba(255,140,0,0.6),rgba(255,184,77,0.6));
+            mix-blend-mode:overlay;
+            animation:gradientMove 8s infinite alternate;
+        }
+        @keyframes gradientMove{
+            0%{background-position:0% 0%}
+            100%{background-position:100% 100%}
+        }
+        .hero-content{position:relative;z-index:2;max-width:800px;padding:0 20px;}
+        .hero-content h1{font-family:'Playfair Display',serif;font-size:3rem;line-height:1.2;margin-bottom:20px;}
+        .hero-content p{font-size:1.2rem;margin-bottom:30px;}
+        .btn{display:inline-block;padding:12px 30px;background:var(--primary);color:#fff;border:none;border-radius:30px;
+            font-weight:600;cursor:pointer;transition:var(--transition);}
+        .btn:hover{background:#e67e22;transform:scale(1.05);}
+        /* Wave Divider */
+        .wave{
+            display:block;width:100%;height:100px;overflow:hidden;line-height:0;
+        }
+        .wave svg{position:relative;display:block;width:calc(100% + 1.3px);height:100%;}
+        /* Section */
+        section{padding:80px 20px;position:relative;}
+        .section-title{font-family:'Playfair Display',serif;font-size:2.5rem;text-align:center;margin-bottom:60px;}
+        /* Glass Cards */
+        .glass-card{
+            background:var(--bg-card);
+            backdrop-filter:blur(10px);
+            -webkit-backdrop-filter:blur(10px);
+            border-radius:15px;
+            padding:30px;
+            box-shadow:0 8px 32px rgba(0,0,0,0.2);
+            transition:var(--transition);
+        }
+        .glass-card:hover{transform:translateY(-10px);box-shadow:0 12px 36px rgba(0,0,0,0.3);}
+        .grid{display:grid;gap:30px;}
+        .grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+        .grid-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+        /* Counter */
+        .counter{font-size:2.5rem;font-weight:600;color:var(--primary);text-align:center;}
+        .counter-label{font-size:1rem;text-align:center;color:var(--text-muted);}
+        /* Testimonials */
+        .testimonial{position:relative;padding:30px;background:var(--bg-card);
+            backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+            border-radius:15px;box-shadow:0 6px 20px rgba(0,0,0,0.15);
+            transition:var(--transition);}
+        .testimonial:hover{transform:scale(1.03);}
+        .stars{display:flex;gap:3px;margin-bottom:10px;}
+        .stars svg{width:16px;height:16px;fill:#ffd700;}
+        .testimonial p{font-style:italic;margin-bottom:15px;}
+        .testimonial h4{font-weight:600;}
+        /* Contact Form */
+        .contact-form{max-width:600px;margin:auto;}
+        .contact-form input,.contact-form textarea{
+            width:100%;padding:12px;border:none;border-radius:8px;margin-bottom:15px;
+            background:rgba(255,255,255,0.1);color:#fff;outline:none;
+        }
+        .contact-form button{width:100%;padding:12px;background:var(--primary);color:#fff;
+            border:none;border-radius:30px;font-weight:600;cursor:pointer;transition:var(--transition);}
+        .contact-form button:hover{background:#e67e22;}
+        /* Footer */
+        footer{background:#111;padding:40px 20px;text-align:center;color:#ccc;}
+        .social-links a{margin:0 10px;color:#ccc;transition:var(--transition);}
+        .social-links a:hover{color:var(--primary);}
+        /* Floating CTA */
+        #cta-whatsapp{
+            position:fixed;bottom:80px;right:20px;background:#25D366;color:#fff;
+            width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+            font-size:28px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);
+            z-index:1000;transition:var(--transition);
+        }
+        #cta-whatsapp:hover{transform:scale(1.1);}
+        /* Animations */
+        .animate{opacity:0;transform:translateY(30px);transition:all 0.6s ease-out;}
+        .animate.visible{opacity:1;transform:none;}
+        /* Responsive */
+        @media(max-width:768px){
+            .nav-links{position:fixed;top:0;right:-100%;height:100vh;width:250px;background:#111;
+                flex-direction:column;padding-top:80px;gap:20px;transition:var(--transition);}
+            .nav-links.open{right:0;}
+            .hamburger{display:flex;}
+            .hero-content h1{font-size:2.2rem;}
+        }
+    </style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<nav class="transparent" id="navbar">
+    <div class="logo">Final Test Pékség</div>
+    <div class="nav-links" id="navLinks">
+        <a href="#hero">Kezdőlap</a>
+        <a href="#about">Rólunk</a>
+        <a href="#products">Termékek</a>
+        <a href="#stats">Statisztikák</a>
+        <a href="#testimonials">Vélemények</a>
+        <a href="#contact">Kapcsolat</a>
+    </div>
+    <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<section id="hero">
+    <div class="hero-content animate">
+        <h1>Üdvözöljük a Final Test Pékségben</h1>
+        <p>Meleg, otthonos illatok, friss pékáruk – minden falatban a szeretet.</p>
+        <button class="btn">Fedezze fel kínálatunkat</button>
+    </div>
+</section>
+
+<div class="wave">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+        <path d="M0,50 C360,150 1080,0 1440,100 L1440,150 L0,150 Z" fill="#1a1a1a"></path>
+    </svg>
+</div>
+
+<section id="about">
+    <h2 class="section-title animate">Rólunk</h2>
+    <div class="grid grid-2">
+        <div class="glass-card animate">
+            <h3>Hagyomány és minőség</h3>
+            <p>Az évek során megtanultuk, hogyan készítsünk tökéletes, kézzel dolgozott kenyereket és süteményeket. Minden reggel friss alapanyagokból, szeretettel.</p>
+        </div>
+        <div class="glass-card animate">
+            <h3>Kényelmes környezet</h3>
+            <p>Gyere be, ülj le egy friss kávé mellé, és élvezd a meleg légkört, ahol a sütő illata kíséri minden pillanatod.</p>
+        </div>
+    </div>
+</section>
+
+<div class="wave">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+        <path d="M0,100 C480,0 960,200 1440,50 L1440,150 L0,150 Z" fill="#1a1a1a"></path>
+    </svg>
+</div>
+
+<section id="products">
+    <h2 class="section-title animate">Kínálatunk</h2>
+    <div class="grid grid-3">
+        <div class="glass-card animate">
+            <h3>Friss Kenyér</h3>
+            <p>Ropogós héj, puha belső – a mindennapok legjobb kezdete.</p>
+        </div>
+        <div class="glass-card animate">
+            <h3>Sütik</h3>
+            <p>Különleges ízekkel és díszítéssel, minden alkalomra.</p>
+        </div>
+        <div class="glass-card animate">
+            <h3>Édes Péksütemények</h3>
+            <p>Fagylaltos torták, krémes rétesek, amelyek elvarázsolják az ízlelőbimbókat.</p>
+        </div>
+    </div>
+</section>
+
+<div class="wave">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+        <path d="M0,50 C360,150 1080,0 1440,100 L1440,150 L0,150 Z" fill="#1a1a1a"></path>
+    </svg>
+</div>
+
+<section id="stats">
+    <h2 class="section-title animate">Statisztikáink</h2>
+    <div class="grid grid-4">
+        <div class="animate">
+            <div class="counter" data-target="15">0</div>
+            <div class="counter-label">Év tapasztalat</div>
+        </div>
+        <div class="animate">
+            <div class="counter" data-target="1200">0</div>
+            <div class="counter-label">Elégedett ügyfél</div>
+        </div>
+        <div class="animate">
+            <div class="counter" data-target="300">0</div>
+            <div class="counter-label">Napi friss kenyér</div>
+        </div>
+        <div class="animate">
+            <div class="counter" data-target="850">0</div>
+            <div class="counter-label">Kifőzött sütemény</div>
+        </div>
+    </div>
+</section>
+
+<div class="wave">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+        <path d="M0,100 C480,0 960,200 1440,50 L1440,150 L0,150 Z" fill="#1a1a1a"></path>
+    </svg>
+</div>
+
+<section id="testimonials">
+    <h2 class="section-title animate">Vásárlói Vélemények</h2>
+    <div class="grid grid-3">
+        <div class="testimonial animate">
+            <div class="stars">
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+            </div>
+            <p>Az ízek egyszerűen csodálatosak! A friss kenyér minden reggel a legjobb kezdet.</p>
+            <h4>- Anna K.</h4>
+        </div>
+        <div class="testimonial animate">
+            <div class="stars">
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+            </div>
+            <p>A pékség hangulata annyira barátságos, hogy szinte otthon érzem magam.</p>
+            <h4>- Gábor N.</h4>
+        </div>
+        <div class="testimonial animate">
+            <div class="stars">
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+                <svg viewBox="0 0 20 20"><polygon points="10 1 12.59 6.9 19 7.63 14 12.15 15.45 18.5 10 15.27 4.55 18.5 6 12.15 1 7.63 7.41 6.9"/></svg>
+            </div>
+            <p>Mindig van valami új finomság, amit csak itt kóstolhatunk meg.</p>
+            <h4>- Eszter P.</h4>
+        </div>
+    </div>
+</section>
+
+<div class="wave">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+        <path d="M0,100 C480,0 960,200 1440,50 L1440,150 L0,150 Z" fill="#1a1a1a"></path>
+    </svg>
+</div>
+
+<section id="contact">
+    <h2 class="section-title animate">Kapcsolat</h2>
+    <form class="contact-form animate" action="https://formspree.io/f/xpwzgkqj" method="POST">
+        <input type="text" name="name" placeholder="Név" required>
+        <input type="email" name="_replyto" placeholder="E-mail" required>
+        <textarea name="message" rows="5" placeholder="Üzenet" required></textarea>
+        <button type="submit" class="btn">Küldés</button>
+    </form>
+</section>
+
+<footer>
+    <p>© 2026 Final Test Pékség – Minden jog fenntartva.</p>
+    <div class="social-links">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.342 3.608 1.317.975.975 1.255 2.242 1.317 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.342 2.633-1.317 3.608-.975.975-2.242 1.255-3.608 1.317-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.
