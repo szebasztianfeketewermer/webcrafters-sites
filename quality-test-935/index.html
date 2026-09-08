@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Quality Test – Luxus hajszalon Budapest</title>
+<meta name="description" content="A Quality Test egy exkluzív, modern hajszalon Budapesten, ahol a rózsaarany elegancia találkozik a legújabb trendekkel.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<meta property="og:title" content="Quality Test – Luxus hajszalon Budapest">
+<meta property="og:description" content="Rózsaarany elegancia, prémium szolgáltatás.">
+<meta property="og:type" content="business.business">
+<meta property="og:image" content="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1600&q=80">
+<meta property="og:url" content="https://example.com">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Quality Test",
+  "description": "Luxus hajszalon Budapesten, rózsaarany színvilággal és modern, személyre szabott szolgáltatásokkal.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Budapest",
+    "addressCountry": "HU"
+  },
+  "telephone": "+36123456789",
+  "url": "https://example.com"
+}
+</script>
+<style>
+:root{
+  --rose-gold:#b76e79;
+  --rose-gold-light:#d8a5aa;
+  --rose-gold-dark:#8b4b56;
+  --accent:#ffb3c1;
+  --bg:#fafafa;
+  --text:#212121;
+  --font-sans:'Inter',sans-serif;
+  --font-serif:'Fraunces',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-sans);
+  color:var(--text);
+  background:linear-gradient(135deg,var(--rose-gold-light),var(--bg));
+  background-size:400% 400%;
+  animation:gradient 15s ease infinite;
+  overflow-x:hidden;
+}
+@keyframes gradient{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+header{
+  position:fixed;top:0;left:0;width:100%;z-index:1000;
+  transition:background 0.3s;
+}
+nav{
+  display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;
+  background:rgba(255,255,255,0.8);
+  backdrop-filter:blur(8px);
+}
+nav.scrolled{
+  background:rgba(255,255,255,0.95);
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+.logo{
+  font-family:var(--font-serif);
+  font-size:1.8rem;
+  color:var(--rose-gold-dark);
+}
+.menu-toggle{
+  display:none;
+}
+.menu{
+  display:flex;gap:1.5rem;
+}
+.menu a{
+  text-decoration:none;
+  font-weight:600;
+  color:var(--rose-gold-dark);
+  position:relative;
+}
+.menu a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:-4px;width:0;height:2px;background:var(--rose-gold);
+  transition:width .3s;
+}
+.menu a:hover::after{width:100%;}
+.hamburger{
+  display:none;flex-direction:column;gap:5px;cursor:pointer;
+}
+.hamburger span{
+  width:25px;height:3px;background:var(--rose-gold-dark);
+}
+@media (max-width:768px){
+  .menu{display:none;flex-direction:column;background:rgba(255,255,255,0.9);position:absolute;top:100%;right:0;width:200px;padding:1rem;}
+  .menu a{padding:0.5rem 0;}
+  #nav-toggle:checked ~ .menu{display:flex;}
+  .hamburger{display:flex;}
+}
+section{padding:6rem 2rem;position:relative;}
+.hero{
+  height:100vh;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.hero img{
+  position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;
+  animation:kenburns 20s ease-in-out infinite alternate;
+}
+@keyframes kenburns{
+  from{transform:scale(1) translateY(0%);}
+  to{transform:scale(1.1) translateY(-5%);}
+}
+.hero .overlay{
+  position:relative;z-index:1;text-align:center;
+}
+.hero h1{
+  font-family:var(--font-serif);
+  font-size:4rem;color:#fff;letter-spacing:2px;
+  animation:reveal 1.5s ease-out;
+}
+@keyframes reveal{
+  from{clip-path:inset(0 100% 0 0);}
+  to{clip-path:inset(0 0% 0 0);}
+}
+.hero p{
+  margin-top:1rem;font-size:1.2rem;color:#fff;
+}
+.btn{
+  margin-top:2rem;padding:0.8rem 1.6rem;background:var(--rose-gold);
+  color:#fff;border:none;border-radius:30px;cursor:pointer;
+  font-weight:600;transition:transform .2s,box-shadow .2s;
+}
+.btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+.wave{
+  position:absolute;bottom:0;width:100%;height:120px;
+  background:var(--bg);
+  clip-path:polygon(0 70%,100% 30%,100% 100%,0% 100%);
+}
+.parallax{
+  background-attachment:fixed;background-size:cover;background-position:center;
+}
+.service-card{
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(12px);
+  border-radius:12px;padding:2rem;
+  transition:transform .3s,box-shadow .3s;
+}
+.service-card:hover{
+  transform:translateY(-8px) rotateX(3deg) rotateY(3deg);
+  box-shadow:0 12px 24px rgba(0,0,0,0.15);
+}
+.service-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:2rem;
+}
+.testimonial{
+  background:rgba(255,255,255,0.5);
+  backdrop-filter:blur(8px);
+  padding:1.5rem;border-radius:10px;
+}
+.stars{color:#ffb400;margin-bottom:0.5rem;}
+.floating-cta{
+  position:fixed;bottom:1.5rem;right:1.5rem;
+  background:#25D366;color:#fff;padding:0.8rem 1.2rem;
+  border-radius:30px;box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  text-decoration:none;font-weight:600;display:flex;align-items:center;gap:0.5rem;
+}
+.floating-cta:hover{background:#20b358;}
+.back-to-top{
+  position:fixed;bottom:80px;right:1.5rem;background:var(--rose-gold-dark);
+  color:#fff;padding:0.6rem 0.9rem;border-radius:50%;cursor:pointer;
+  font-size:1.2rem;display:none;z-index:1000;
+}
+.back-to-top.show{display:block;}
+.cursor-highlight{
+  position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;
+  background:radial-gradient(circle at var(--x) var(--y),rgba(255,255,255,0.15),transparent 40%);
+  mix-blend-mode:soft-light;transition:background .1s;
+}
+</style>
+</head>
+<body>
+<div class="cursor-highlight"></div>
+<header>
+  <nav id="main-nav">
+    <div class="logo">Quality Test</div>
+    <input type="checkbox" id="nav-toggle" class="menu-toggle">
+    <label for="nav-toggle" class="hamburger">
+      <span></span><span></span><span></span>
+    </label>
+    <div class="menu">
+      <a href="#rolunk">Rólunk</a>
+      <a href="#szolgaltatasok">Szolgáltatások</a>
+      <a href="#velemenyek">Vélemények</a>
+      <a href="#kapcsolat">Kapcsolat</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1600&q=80" alt="Luxus hajszalon belső">
+  <div class="overlay">
+    <h1>Üdvözöljük a Quality Test-ben</h1>
+    <p>Rózsaarany elegancia, prémium hajápolás Budapesten</p>
+    <button class="btn">Foglaljon időpontot</button>
+  </div>
+  <div class="wave"></div>
+</section>
+
+<section id="rolunk" class="parallax" style="background-image:url('https://images.unsplash.com/photo-1519494080418-efbe9a0f5e8b?auto=format&fit=crop&w=1600&q=80');">
+  <h2 style="font-family:var(--font-serif);font-size:2.8rem;color:var(--rose-gold-dark);text-align:center;animation:reveal 1s ease-out;">Rólunk</h2>
+  <p style="max-width:800px;margin:auto;margin-top:1rem;text-align:center;font-size:1.1rem;">
+    A Quality Test egy exkluzív hajszalon, ahol a modern trendeket a rózsaarany fényűző színpalettájával ötvözzük. Tapasztalt stylistjeink személyre szabott konzultációval biztosítják, hogy minden vendég a saját stílusát tükröző frizurát kapja.
+  </p>
+  <div class="wave" style="background:var(--bg);clip-path:polygon(0 30%,100% 70%,100% 100%,0% 100%);top:auto;bottom:0;"></div>
+</section>
+
+<section id="szolgaltatasok">
+  <h2 style="font-family:var(--font-serif);font-size:2.8rem;color:var(--rose-gold-dark);text-align:center;animation:reveal 1s ease-out;">Szolgáltatásaink</h2>
+  <div class="service-grid">
+    <div class="service-card">
+      <h3 style="font-family:var(--font-serif);color:var(--rose-gold-dark);">Vágás & Stílus</h3>
+      <p>Trendkövető vágások, személyre szabott tanácsok.</p>
+    </div>
+    <div class="service-card">
+      <h3 style="font-family:var(--font-serif);color:var(--rose-gold-dark);">Szín- & Fényezés</h3>
+      <p>Rózsaarany árnyalatok, visszafogott vagy merész színek.</p>
+    </div>
+    <div class="service-card">
+      <h3 style="font-family:var(--font-serif);color:var(--rose-gold-dark);">Kezelés & Ápolás</h3>
+      <p>Luxus hajkezelések, mélyhidratálás, fejbőr terápia.</p>
+    </div>
+    <div class="service-card">
+      <h3 style="font-family:var(--font-serif);color:var(--rose-gold-dark);">Esküvői & Alkalmi</h3>
+      <p>Prémium előkészületek, hosszú távú tartósság.</p>
+    </div>
+  </div>
+</section>
+
+<section id="velemenyek" style="background:#fff;">
+  <h2 style="font-family:var(--font-serif);font-size:2.8rem;color:var(--rose-gold-dark);text-align:center;animation:reveal 1s ease-out;">Vélemények</h2>
+  <div class="service-grid" style="margin-top:2rem;">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>„A legjobb élmény, amit valaha egy hajszalonban tapasztaltam. A csapat igazi mesterek.” – Anna K.</p>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>„Rózsaarany színvilág, ami minden alkalommal újjá varázsol.” – Péter M.</p>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>„Kifogástalan kiszolgálás, modern környezet – tökéletes!” – Eszter D.</p>
+    </div>
+  </div>
+</section>
+
+<section id="kapcsolat" style="background:#fafafa;">
+  <h2 style="font-family:var(--font-serif);font-size:2.8rem;color:var(--rose-gold-dark);text-align:center;animation:reveal 1s ease-out;">Kapcsolat</h2>
+  <form action="https://formspree.io/f/xpwzgkqj" method="POST" style="max-width:600px;margin:auto;margin-top:2rem;display:flex;flex-direction:column;gap:1rem;">
+    <input type="text" name="name" placeholder="Név" required style="padding:0.8rem;border:1px solid #ccc;border-radius:6px;">
+    <input type="email" name="email" placeholder="E‑mail" required style="padding:0.8rem;border:1px solid #ccc;border-radius:6px;">
+    <textarea name="message" placeholder="Üzenet" rows="5" required style="padding:0.8rem;border:1px solid #ccc;border-radius:6px;"></textarea>
+    <button type="submit" class="btn">Küldés</button>
+  </form>
+</section>
+
+<a href="https://wa.me/36312345678" class="floating-cta">💬 WhatsApp</a>
+<div class="back-to-top" id="backToTop">↑</div>
+
+<script>
+(() => {
+  const nav = document.getElementById('main-nav');
+  const back = document.getElementById('backToTop');
+  const cursor = document.querySelector('.cursor-highlight');
+
+  const onScroll = () => {
+    if (window.scrollY > 80) {
+      nav.classList.add('scrolled');
+      back.classList.add('show');
+    } else {
+      nav.classList.remove('scrolled');
+      back.classList.remove('show');
+    }
+  };
+  const onMouseMove = e => {
+    const x = e.clientX + 'px';
+    const y = e.clientY + 'px';
+    cursor.style.setProperty('--x', x);
+    cursor.style.setProperty('--y', y);
+  };
+  const onBackClick = () => window.scrollTo({top:0,behavior:'smooth'});
+
+  window.addEventListener('scroll', onScroll);
+  window.addEventListener('mousemove', onMouseMove);
+  back.addEventListener('click', onBackClick);
+})();
+</script>
+</body>
+</html>
